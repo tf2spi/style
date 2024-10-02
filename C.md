@@ -1,5 +1,21 @@
 # C Coding Style Guidelines
 
+* When making libraries, remember your project may be ported/compiled in all kinds of projects, so...
+	- Compile with all non-experimental warnings and error on warning
+		* ``gcc/clang``: ``-Wall -Wextra -Werror``
+		* ``msvc``: ``/W4 /WX``
+	- Adhere to ``C99`` and ``C++14`` standards
+		* ``gcc/clang``: ``-pedantic -std=c99``
+		* ``msvc``: ``/std:c++14 /permissive-``
+* When building for both debug and release, add ``-Wformat=2 -D_FORTIFY_SOURCE=2`` when compiling with ``gcc/clang``
+	- These are not on by default with ``-Wall -Wextra`` but can really save you from simple screwups, especially in release
+* When building for debug, turn on various sanitizers
+	- Even when security isn't a concern, it ends up catching bad reads/writes sooner rather than later, helping debuggability
+	- Note that both ``msvc``  and ``clang/gcc`` will include sanitizers so check out the options for those
+* When building for release, if there are pointer/memory tagging extensions, like ``PAC`` or ``MTE`` on ``ARM``, use those
+	- They have hardly any performance penalty and make exploits much less consistent
+	- Memory tagging also catches bad reads/writes sooner rather than later so they help debugging release builds
+	- For ``MTE``, use mode ``SYNC`` for debug and ``ASYNC`` for release (though this should be default anyways)
 * When making macros, make them ``SCREAMING_CASE`` so they're easy to identify
 	- Macros may not be valid for all expressions and can have interesting side effects
 	- Some debuggers treat macros specially so it's useful to be able to identify what is a macro
@@ -26,13 +42,9 @@ static const int X = 1;
 #define X 1
 static const int Y = 2;
 #define Y 2
+
+// In ISO C99, enums are always int, so this would've been illegal to put in enum
 static const int64_t Z = 0x800000000;
 #define Z 0x800000000
 ```
-* When making libraries, remember your project may be ported/compiled in all kinds of projects, so...
-	- Compile with all non-experimental warnings and error on warning
-		* ``gcc/clang``: ``-Wall -Wextra -Werror``
-		* ``msvc``: ``/W4 /WX``
-	- Adhere to ``C99`` and ``C++14`` standards
-		* ``gcc/clang``: ``-pedantic -std=c99``
-		* ``msvc``: ``/std:c++14 /permissive-``
+
