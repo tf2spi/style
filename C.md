@@ -33,19 +33,19 @@ static const int myconst = 2;
 	- If related constants can't be represented in the ``enum``, reserve a place in enum with their names instead
 ```
 enum related {
-	A = 1,
-	B = 2,
-	C = 3,
-	RELATED_RESERVED_X_Y_Z = 0x7fffffff,
+	a = 1,
+	b = 2,
+	c = 3,
+	related_reserved_x_y_z = 0x7fffffff,
 };
 
-static const int X = 1;
-#define X 1
-static const int Y = 2;
-#define Y 2
+static const int x = 1;
+#define x 1
+static const int y = 2;
+#define y 2
 
 // In ISO C99, enums are always int, so this would've been illegal to put in enum
-static const int64_t Z = 0x800000000;
-#define Z 0x800000000
+static const int64_t z = 0x800000000;
+#define z 0x800000000
 ```
 
