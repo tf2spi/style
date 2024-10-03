@@ -6,6 +6,7 @@
 		* ``msvc``: ``/W4 /WX``
 	- Adhere to ``C99`` and ``C++14`` standards
 		* ``gcc/clang``: ``-pedantic -std=c99``
+		* ``g++/clang++``: ``-pedantic -std=c99``
 		* ``msvc``: ``/std:c++14 /permissive-``
 * When building for both debug and release, add ``-Wformat=2 -D_FORTIFY_SOURCE=2`` when compiling with ``gcc/clang``
 	- These are not on by default with ``-Wall -Wextra`` but can really save you from simple screwups, especially in release

@@ -9,3 +9,8 @@ Personal code style and build tooling guidelines
 	- It's often for the reason of debuggability or optimality of run/compile time when making debug builds
 	- Very rarely will the reason be readability, enforcement, or maintenance
 	- I find the former to be more tangible than the latter, hence why they have their priorities
+
+## Specific Guidelines
+
+* [C](./C.md)
+* [CPP](./CPP.md)
